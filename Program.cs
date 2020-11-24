@@ -11,18 +11,17 @@ namespace CA201116
     {
         struct Egitest
         {
-            public string nev;
-            public string knev;
-            public long ktav;
-            public int atmero;
+            public string Nev;
+            public string Knev;
+            public long Ktav;
+            public int Atmero;
 
-            public Egitest Uj(string nev, string knev, long tav, int atmero)
+            public Egitest(string nev, string knev, long tav, int atmero)
             {
-                this.nev = nev;
-                this.knev = knev;
-                this.ktav = tav;
-                this.atmero = atmero;
-                return this;
+                Nev = nev;
+                Knev = knev;
+                Ktav = tav;
+                Atmero = atmero;
             }
         }
 
@@ -45,7 +44,7 @@ namespace CA201116
             while (!sr.EndOfStream)
             {
                 string[] tmp = sr.ReadLine().Split(' ');
-                egitestek.Add(new Egitest().Uj(tmp[0], tmp[1], Convert.ToInt64(tmp[2]), Convert.ToInt32(tmp[3])));
+                egitestek.Add(new Egitest(tmp[0], tmp[1], Convert.ToInt64(tmp[2]), Convert.ToInt32(tmp[3])));
             }
             sr.Close();
         }
@@ -55,7 +54,7 @@ namespace CA201116
             long sum = 0;
             foreach (var item in egitestek)
             {
-                sum += item.atmero;
+                sum += item.Atmero;
             }
             Console.WriteLine($"Átlagos átmérő: {(double)sum/egitestek.Count :0.000} (km), átlagos térfogat: {(4*Math.Pow(((double)sum / egitestek.Count) /2, 3) * Math.PI) /(3) :0.000} (km3)");
         }
@@ -65,31 +64,26 @@ namespace CA201116
             int maxi = 0;
             for (int i = 0; i < egitestek.Count; i++)
             {
-                if (egitestek[i].atmero > egitestek[maxi].atmero) maxi = i;
+                if (egitestek[i].Atmero > egitestek[maxi].Atmero) maxi = i;
             }
-            Console.WriteLine($"Legnagyobb átmérőjű égitest: {egitestek[maxi].nev}, átmérője: {egitestek[maxi].atmero}");
+            Console.WriteLine($"Legnagyobb átmérőjű égitest: {egitestek[maxi].Nev}, átmérője: {egitestek[maxi].Atmero}");
         }
 
         static void C()
         {
             int c = 0;
-            for (int i = 0; i < egitestek.Count; i++)
+            foreach (var e in egitestek)
             {
-                if (egitestek[i].knev == "Neptunusz") c++;
+                if (e.Knev == "Neptunusz") c++;
             }
             Console.WriteLine($"Neptunusz holdjainak száma: {c}");
         }
 
         static void D()
         {
-            List<string> bolygok = new List<string>();
-            for (int i = 0; i < egitestek.Count; i++)
+            foreach (var e in egitestek)
             {
-                if (egitestek[i].knev == "Nap") bolygok.Add(egitestek[i].nev);
-            }
-            foreach (var item in bolygok)
-            {
-                Console.Write(item + " ");
+                if (e.Knev == "Nap") Console.Write(e.Nev + " ");
             }
         }
 
@@ -100,10 +94,10 @@ namespace CA201116
 
             for (int i = 0; i < egitestek.Count; i++)
             {
-                if (egitestek[i].knev == "Jupiter")
+                if (egitestek[i].Knev == "Jupiter")
                 {
-                    jholdak.Add(egitestek[i].nev);
-                    jtavolsag.Add(egitestek[i].ktav);
+                    jholdak.Add(egitestek[i].Nev);
+                    jtavolsag.Add(egitestek[i].Ktav);
                 }
             }
 
@@ -134,7 +128,7 @@ namespace CA201116
             sw.Flush();
             sw.Close();
 
-            Console.WriteLine("\nÚj fájlba írtam :)");
+            Console.WriteLine("\n(Új) fájlba írtam :)");
         }
     }
 }
